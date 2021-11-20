@@ -1,1 +1,1 @@
-Shell Project
+Simple Shell Project
