@@ -5,6 +5,7 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <string.h>
+#include "main.h"
 char **splitter(char fun[]);
 int main(void)
 {
@@ -21,7 +22,7 @@ int main(void)
 	{
 		return (-1);
 	}
-	printf("#cisfun$ ");
+	_printf("#cisfun$ ");
 	while (getline(&str, &bufsize, stdin) != -1)
 	{
 		if (strcmp(str, "exit\n") == 0)
@@ -36,7 +37,7 @@ int main(void)
 		}
 		else
 		{
-			printf("%s: not found\n", argv[0]);
+			_printf("%s: not found\n", argv[0]);
 		}
 		if (pid != 0)
 			wait(&status);
@@ -44,7 +45,7 @@ int main(void)
 		{
 			execve(argv[0], argv, NULL);
 		}
-		printf("#cisfun$ ");
+		_printf("#cisfun$ ");
 	}
 	free(str);
 	return (0);
