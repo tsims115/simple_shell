@@ -1,5 +1,8 @@
 #include "main.h"
-char **splitter(char fun[]);
+/**
+ * main - This programs creates a simple shell
+ * Return: 0 on success
+ */
 int main(void)
 {
 	size_t bufsize = 200000;
