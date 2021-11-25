@@ -6,10 +6,10 @@
  */
 int _spec_pct(va_list *args)
 {
-        (void)(args);
+	(void)(args);
 
-        _putchar('%');
-        return (1);
+	_putchar('%');
+	return (1);
 }
 
 /**
