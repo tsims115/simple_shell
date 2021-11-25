@@ -6,9 +6,11 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <unistd.h>
 #include <stdarg.h>
-
+#include <stddef.h>
+#include <limits.h>
 /**
  * struct function - structure to find the correct function for a specifier
  * @spec: The specifier in question
@@ -20,6 +22,7 @@ typedef struct function
 	int (*funct)(va_list *);
 } function_t;
 
+int run(char **argv);
 char **splitter(char fun[]);
 int prompt();
 int _putchar(char c);
