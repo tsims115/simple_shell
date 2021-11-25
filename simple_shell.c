@@ -1,28 +1,19 @@
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <stdlib.h>
-#include <string.h>
 #include "main.h"
 char **splitter(char fun[]);
 int main(void)
 {
 	size_t bufsize = 200000;
-	pid_t pid;
 	char *str = malloc(bufsize * sizeof(char));
 	char **argv;
+	char s[100];
 	size_t n;
-	int status;
 	char *command = NULL;
-	struct stat st;
 
 	if (str == NULL)
 	{
 		return (-1);
 	}
-	_printf("#cisfun$ ");
+	_printf("%s$ ", getcwd(s, 100));
 	while (getline(&str, &bufsize, stdin) != -1)
 	{
 		if (strcmp(str, "exit\n") == 0)
@@ -31,21 +22,13 @@ int main(void)
 		str[strlen(str) - 1] = '\0';
 		argv = splitter(str);
 
-		if (stat(argv[0], &st) == 0)
-		{
-			pid = fork();
-		}
+		if (strcmp(argv[0], "cd") == 0)
+			chdir(argv[1]);
 		else
 		{
-			_printf("%s: not found\n", argv[0]);
+			run(argv);
 		}
-		if (pid != 0)
-			wait(&status);
-		if (pid == 0)
-		{
-			execve(argv[0], argv, NULL);
-		}
-		_printf("#cisfun$ ");
+		_printf("%s$ ", getcwd(s, 100));
 	}
 	free(str);
 	return (0);

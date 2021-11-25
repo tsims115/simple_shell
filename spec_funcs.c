@@ -1,6 +1,4 @@
 #include "main.h"
-#include <stdarg.h>
-#include <limits.h>
 /**
  * _spec_pct - prints a % char when the % specifier is used
  * @args: not used for this function
