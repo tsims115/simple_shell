@@ -1,51 +1,47 @@
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <stdlib.h>
-#include <string.h>
-char **splitter(char fun[]);
+#include "main.h"
+/**
+ * main - This programs creates a simple shell
+ * Return: 0 on success
+ */
 int main(void)
 {
 	size_t bufsize = 200000;
-	pid_t pid;
 	char *str = malloc(bufsize * sizeof(char));
 	char **argv;
+	char s[100];
 	size_t n;
-	int status;
 	char *command = NULL;
-	struct stat st;
+	int length;
 
 	if (str == NULL)
 	{
 		return (-1);
 	}
-	printf("#cisfun$ ");
-	while (getline(&str, &bufsize, stdin) != -1)
-	{
+	do {
+		_printf("%s$ ", getcwd(s, 100));
+
+		length = getline(&str, &bufsize, stdin);
+		if (length == EOF)
+		{
+			_putchar('\n');
+			free(str);
+			exit(-1);
+		}
+
 		if (strcmp(str, "exit\n") == 0)
 			free(str), exit(0);
 
-		str[strlen(str) - 1] = '\0';
+		if (str[strlen(str) - 1] == '\n')
+			str[strlen(str) - 1] = '\0';
+
 		argv = splitter(str);
 
-		if (stat(argv[0], &st) == 0)
-		{
-			pid = fork();
-		}
+		if (strcmp(argv[0], "cd") == 0)
+			chdir(argv[1]);
 		else
-		{
-			printf("%s: not found\n", argv[0]);
-		}
-		if (pid != 0)
-			wait(&status);
-		if (pid == 0)
-		{
-			execve(argv[0], argv, NULL);
-		}
-		printf("#cisfun$ ");
-	}
+			run(argv);
+
+	} while (length != -1);
 	free(str);
 	return (0);
 }
