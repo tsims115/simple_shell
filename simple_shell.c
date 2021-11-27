@@ -28,15 +28,15 @@ int main(void)
 			exit(-1);
 		}
 
-		if (strcmp(str, "exit\n") == 0)
+		if (_strcmp(str, "exit\n") == 0)
 			free(str), exit(0);
 
-		if (str[strlen(str) - 1] == '\n')
-			str[strlen(str) - 1] = '\0';
+		if (str[_strlen(str) - 1] == '\n')
+			str[_strlen(str) - 1] = '\0';
 
 		argv = splitter(str);
 
-		if (strcmp(argv[0], "cd") == 0)
+		if (_strcmp(argv[0], "cd") == 0)
 			chdir(argv[1]);
 		else
 			run(argv);

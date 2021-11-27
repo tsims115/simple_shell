@@ -1,7 +1,7 @@
 #include "main.h"
 /**
  * run - runs a command entered from the command line
- * @argv: a pointer to a pointer of the commands given from getline)
+ * @argv: a pointer to a pointer of the commands given from getline
  * Return: 0 on success
  */
 int run(char **argv)

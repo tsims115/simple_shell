@@ -22,7 +22,17 @@ int _strlen(char *s)
  * @s2: second string pointer
  * Return: diff
  */
-int _strcmp(char s1, char *s2)
+int _strcmp(char *s1, char *s2)
+{
+        int i;
+
+	for (i = 0; s1[i] != '\0'; i++)
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+	return (0);
+}
+
+int _strccmp(char s1, char *s2)
 {
 	int diff = 1;
 
@@ -61,7 +71,7 @@ int (*_get_function(char s))(va_list * args)
 	}
 	while (fun[i].spec != NULL)
 	{
-		if (_strcmp(s, fun[i].spec) == 0)
+		if (_strccmp(s, fun[i].spec) == 0)
 		{
 			return (fun[i].funct);
 		}
