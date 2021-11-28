@@ -2,6 +2,7 @@
 /**
  * run - runs a command entered from the command line
  * @argv: a pointer to a pointer of the commands given from getline
+ * @HEAD: head of linked list
  * Return: 0 on success
  */
 int run(char **argv, path_list *HEAD)

@@ -1,5 +1,15 @@
 #include "main.h"
 /**
+ * env - prints current environment
+ */
+void env(void)
+{
+	int i;
+
+	for (i = 0; environ[i] != NULL; i++)
+		_printf("%s\n", environ[i]);
+}
+/**
  * main - This programs creates a simple shell
  * Return: 0 on success
  */
@@ -28,6 +38,8 @@ int main(void)
 		if (str[_strlen(str) - 1] == '\n')
 			str[_strlen(str) - 1] = '\0';
 		argv = splitter(str);
+		if (_strcmp(argv[0], "env") == 0)
+			env();
 		if (_strcmp(argv[0], "cd") == 0)
 			chdir(argv[1]);
 		else
