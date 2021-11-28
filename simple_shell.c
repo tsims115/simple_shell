@@ -10,14 +10,12 @@ int main(void)
 	char **argv;
 	path_list *HEAD = create_path_list();
 	char s[100];
-	size_t n;
 	int length;
 
 	if (str == NULL)
 		return (-1);
 	do {
 		_printf("%s$ ", getcwd(s, 100));
-
 		length = getline(&str, &bufsize, stdin);
 		if (length == EOF)
 		{
@@ -25,15 +23,11 @@ int main(void)
 			free(str);
 			exit(-1);
 		}
-
 		if (_strcmp(str, "exit\n") == 0)
 			free(str), exit(0);
-
 		if (str[_strlen(str) - 1] == '\n')
 			str[_strlen(str) - 1] = '\0';
-
 		argv = splitter(str);
-
 		if (_strcmp(argv[0], "cd") == 0)
 			chdir(argv[1]);
 		else
