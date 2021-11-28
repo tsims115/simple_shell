@@ -21,10 +21,14 @@ typedef struct function
 	char *spec;
 	int (*funct)(va_list *);
 } function_t;
+typedef struct path_list
+{
+	char *path;
+	struct path_list *next;
+} path_list;
 
-int run(char **argv);
+int run(char **argv, path_list *HEAD);
 char **splitter(char fun[]);
-int prompt();
 int _putchar(char c);
 int _printf(const char *format, ...);
 int _spec_c(va_list *args);
@@ -37,6 +41,9 @@ int _strlen(char *s);
 int (*_get_function(char s))(va_list *args);
 void reverse(char str[], int length);
 char *_itoa(int n, char *str, int base);
-
+char *_strcat(char *dest, char *src);
+void free_list(path_list *HEAD);
+path_list *create_path_list();
+extern char **environ;
 
 #endif
