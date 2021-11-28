@@ -8,15 +8,13 @@ int main(void)
 	size_t bufsize = 200000;
 	char *str = malloc(bufsize * sizeof(char));
 	char **argv;
+	path_list *HEAD = create_path_list();
 	char s[100];
 	size_t n;
-	char *command = NULL;
 	int length;
 
 	if (str == NULL)
-	{
 		return (-1);
-	}
 	do {
 		_printf("%s$ ", getcwd(s, 100));
 
@@ -39,9 +37,10 @@ int main(void)
 		if (_strcmp(argv[0], "cd") == 0)
 			chdir(argv[1]);
 		else
-			run(argv);
+			run(argv, HEAD);
 
 	} while (length != -1);
+	free_list(HEAD);
 	free(str);
 	return (0);
 }
