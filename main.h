@@ -42,8 +42,10 @@ int (*_get_function(char s))(va_list *args);
 void reverse(char str[], int length);
 char *_itoa(int n, char *str, int base);
 char *_strcat(char *dest, char *src);
+char *_strdup(char *str);
 void free_list(path_list *HEAD);
 path_list *create_path_list();
+char *_strchr(char *s, char c);
 extern char **environ;
 
 #endif
