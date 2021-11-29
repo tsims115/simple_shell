@@ -11,13 +11,13 @@ path_list *create_path_list()
 
 	while (environ[i])
 	{
-		tmp_path = strdup(environ[i]);
+		tmp_path = _strdup(environ[i]);
 		if (_strcmp(strtok(tmp_path, "="), "PATH") == 0)
 		{
 			while ((path = strtok(NULL, ":")))
 			{
 				new_node = malloc(sizeof(path_list));
-				new_node->path = strdup(path);
+				new_node->path = _strdup(path);
 				new_node->next = NULL;
 				if (HEAD == NULL)
 				{
@@ -36,6 +36,7 @@ path_list *create_path_list()
 		free(tmp_path);
 		i++;
 	}
+	free(tmp_path);
 	return (HEAD);
 }
 

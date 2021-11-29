@@ -15,7 +15,7 @@ void env(void)
  */
 int main(void)
 {
-	size_t bufsize = 200000;
+	size_t bufsize = 2097152;
 	char *str = malloc(bufsize * sizeof(char));
 	char **argv;
 	path_list *HEAD = create_path_list();

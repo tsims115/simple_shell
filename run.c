@@ -13,30 +13,40 @@ int run(char **argv, path_list *HEAD)
 	char *tmp_path = NULL;
 	int flag = 0;
 	path_list *node = HEAD;
+	char *check = _strchr(argv[0], '/');
 
-	while (node != NULL)
+	if (((stat(argv[0], &st) == 0) && (st.st_mode & S_IXUSR)) && check)
 	{
-		tmp_path = strdup(node->path);
-		strcat(tmp_path, "/");
-		strcat(tmp_path, argv[0]);
-		if (stat(tmp_path, &st) == 0)
+		flag = 1;
+		pid = fork();
+		if (pid != 0)
+			wait(&status);
+		if (pid == 0)
+			execve(argv[0], argv, NULL);
+	}
+	else
+	{
+		while (node != NULL)
 		{
-			flag = 1;
-			argv[0] = tmp_path;
-			pid = fork();
-
-			if (pid != 0)
-				wait(&status);
-
-			if (pid == 0)
-				execve(argv[0], argv, NULL);
-			break;
+			tmp_path = strdup(node->path);
+			_strcat(tmp_path, "/");
+			_strcat(tmp_path, argv[0]);
+			if ((stat(tmp_path, &st) == 0) && (st.st_mode & S_IXUSR))
+			{
+				flag = 1;
+				argv[0] = tmp_path;
+				pid = fork();
+				if (pid != 0)
+					wait(&status);
+				if (pid == 0)
+					execve(argv[0], argv, environ);
+				break;
+			}
+			free(tmp_path);
+			node = node->next;
 		}
-		free(tmp_path);
-		node = node->next;
 	}
 	if (flag == 0)
 		printf("%s: not found\n", argv[0]);
-
 	return (0);
 }
