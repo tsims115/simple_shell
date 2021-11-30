@@ -9,20 +9,15 @@ int run(char **argv, path_list *HEAD)
 {
 	struct stat st;
 	pid_t pid;
-	int status;
+	int status, flag = 0, check = _strchr(argv[0], '/');
 	char *tmp_path = NULL;
-	int flag = 0;
 	path_list *node = HEAD;
-	int check = _strchr(argv[0], '/');
 
 	if (stat(argv[0], &st) == 0 && st.st_mode & S_IXUSR && check == 1)
 	{
 		flag = 1;
 		pid = fork();
-		if (pid != 0)
-			wait(&status);
-		if (pid == 0)
-			execve(argv[0], argv, NULL);
+		pid == 0 ? execve(argv[0], argv, NULL) : wait(&status);
 	}
 	else
 	{

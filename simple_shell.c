@@ -11,6 +11,8 @@ void env(void)
 }
 /**
  * main - This programs creates a simple shell
+ * @ac: ac
+ * @av: av
  * Return: 0 on success
  */
 int main(int ac, char **av)
@@ -24,7 +26,6 @@ int main(int ac, char **av)
 	if (str == NULL)
 		free(str), free_list(HEAD), exit(-2);
 	do {
-
 		_printf("$ ");
 
 		length = getline(&str, &bufsize, stdin);
@@ -38,7 +39,6 @@ int main(int ac, char **av)
 			if (argv != NULL)
 				free(argv);
 		}
-
 		if (str[_strlen(str) - 1] == '\n')
 			str[_strlen(str) - 1] = '\0';
 
@@ -46,14 +46,11 @@ int main(int ac, char **av)
 
 		if (_strcmp(argv[0], "exit") == 0)
 			free(str), free(argv), free_list(HEAD), exit(1);
-
 		if (_strcmp(argv[0], "env") == 0)
 			env();
 		else
 			run(argv, HEAD);
-
 		free(argv);
-
 	} while (length != -1);
 	return (0);
 }
