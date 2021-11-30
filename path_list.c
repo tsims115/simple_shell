@@ -31,12 +31,12 @@ path_list *create_path_list()
 				last->next = new_node;
 				new_node = NULL;
 			}
+			free(tmp_path);
 			break;
 		}
 		free(tmp_path);
 		i++;
 	}
-	free(tmp_path);
 	return (HEAD);
 }
 

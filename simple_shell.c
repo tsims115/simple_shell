@@ -19,13 +19,12 @@ int main(void)
 	char *str = malloc(bufsize * sizeof(char));
 	char **argv;
 	path_list *HEAD = create_path_list();
-	char s[100];
 	int length;
 
 	if (str == NULL)
 		return (-1);
 	do {
-		_printf("%s$ ", getcwd(s, 100));
+		_printf("$ ");
 		length = getline(&str, &bufsize, stdin);
 		if (length == EOF)
 		{
@@ -34,19 +33,26 @@ int main(void)
 			exit(-1);
 		}
 		if (_strcmp(str, "exit\n") == 0)
-			free(str), exit(0);
+		{
+			free(str);
+			free(HEAD);
+			exit(0);
+		}
 		if (str[_strlen(str) - 1] == '\n')
 			str[_strlen(str) - 1] = '\0';
+		printf("Before splitter");
 		argv = splitter(str);
+		printf("After env\n");
 		if (_strcmp(argv[0], "env") == 0)
 			env();
-		if (_strcmp(argv[0], "cd") == 0)
-			chdir(argv[1]);
 		else
+		{
+			printf("Before run\n");
 			run(argv, HEAD);
+			printf("After run\n");
+		}
+		free(argv);
 
 	} while (length != -1);
-	free_list(HEAD);
-	free(str);
 	return (0);
 }
