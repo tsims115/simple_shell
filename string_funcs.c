@@ -59,7 +59,7 @@ char *_strcat(char *dest, char *src)
  * Return: Pointer to first occurrence of character c in s or NULL if not found
  */
 
-char *_strchr(char *s, char c)
+int _strchr(char *s, char c)
 {
 	int i = 0;
 
@@ -67,8 +67,8 @@ char *_strchr(char *s, char c)
 	{
 		if (s[i] == c)
 
-			return (s + i);
+			return (1);
 		i++;
 	}
-	return (NULL);
+	return (0);
 }

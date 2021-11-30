@@ -34,7 +34,11 @@ int main(void)
 			exit(-1);
 		}
 		if (_strcmp(str, "exit\n") == 0)
-			free(str), exit(0);
+		{
+			free(str);
+			free(HEAD);
+			exit(0);
+		}
 		if (str[_strlen(str) - 1] == '\n')
 			str[_strlen(str) - 1] = '\0';
 		argv = splitter(str);
@@ -44,9 +48,8 @@ int main(void)
 			chdir(argv[1]);
 		else
 			run(argv, HEAD);
+		free(argv);
 
 	} while (length != -1);
-	free_list(HEAD);
-	free(str);
 	return (0);
 }

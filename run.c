@@ -13,9 +13,9 @@ int run(char **argv, path_list *HEAD)
 	char *tmp_path = NULL;
 	int flag = 0;
 	path_list *node = HEAD;
-	char *check = _strchr(argv[0], '/');
+	int check = _strchr(argv[0], '/');
 
-	if (((stat(argv[0], &st) == 0) && (st.st_mode & S_IXUSR)) && check)
+	if (stat(argv[0], &st) == 0 && st.st_mode & S_IXUSR && check == 1)
 	{
 		flag = 1;
 		pid = fork();
@@ -28,7 +28,7 @@ int run(char **argv, path_list *HEAD)
 	{
 		while (node != NULL)
 		{
-			tmp_path = strdup(node->path);
+			tmp_path = _strdup(node->path);
 			_strcat(tmp_path, "/");
 			_strcat(tmp_path, argv[0]);
 			if ((stat(tmp_path, &st) == 0) && (st.st_mode & S_IXUSR))
