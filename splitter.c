@@ -11,7 +11,7 @@ char **splitter(char fun[])
 	long int length = strlen(fun);
 	char *temp;
 
-	holder = malloc(sizeof(char) * (length * 2));
+	holder = malloc(sizeof(char *) * (length * 2));
 
 	temp = strtok(fun, " ");
 
@@ -22,6 +22,7 @@ char **splitter(char fun[])
 		temp = strtok(NULL, " ");
 		holder[i] = temp;
 	}
+	free(temp);
 
 	return (holder);
 }

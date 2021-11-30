@@ -28,7 +28,8 @@ int run(char **argv, path_list *HEAD)
 	{
 		while (node != NULL)
 		{
-			tmp_path = _strdup(node->path);
+			tmp_path = malloc(_strlen(node->path) + _strlen(argv[0]) + 2);
+			strcpy(tmp_path, node->path);
 			_strcat(tmp_path, "/");
 			_strcat(tmp_path, argv[0]);
 			if ((stat(tmp_path, &st) == 0) && (st.st_mode & S_IXUSR))
@@ -40,6 +41,7 @@ int run(char **argv, path_list *HEAD)
 					wait(&status);
 				if (pid == 0)
 					execve(argv[0], argv, environ);
+				free(tmp_path);
 				break;
 			}
 			free(tmp_path);
