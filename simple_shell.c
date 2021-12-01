@@ -28,9 +28,7 @@ int main(int ac __attribute__((unused)), char **av)
 	do {
 		if (isatty(STDIN_FILENO))
 			_printf("$ ");
-
 		length = getline(&str, &bufsize, stdin);
-
 		if (length == EOF)
 		{
 			if (!(isatty(STDIN_FILENO)))
@@ -44,9 +42,7 @@ int main(int ac __attribute__((unused)), char **av)
 		}
 		if (str[_strlen(str) - 1] == '\n')
 			str[_strlen(str) - 1] = '\0';
-
 		argv = splitter(str);
-
 		if (_strcmp(argv[0], "exit") == 0)
 			free(str), free(argv), free_list(HEAD), exit(0);
 		if (_strcmp(argv[0], "env") == 0)

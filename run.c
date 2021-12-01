@@ -1,6 +1,8 @@
 #include "main.h"
 /**
  * run - runs a command entered from the command line
+ * @av: av input from main, used for program name
+ * @errcount: how many errors have been caught
  * @argv: a pointer to a pointer of the commands given from getline
  * @HEAD: head of linked list
  * Return: 0 on success
@@ -22,7 +24,6 @@ int run(char **av, int errcount, char **argv, path_list *HEAD)
 		pid == 0 ? execve(argv[0], argv, NULL) : wait(&status);
 	}
 	else
-	{
 		while (node != NULL)
 		{
 			tmp_path = malloc(_strlen(node->path) + _strlen(argv[0]) + 2);
@@ -44,7 +45,6 @@ int run(char **av, int errcount, char **argv, path_list *HEAD)
 			free(tmp_path);
 			node = node->next;
 		}
-	}
 	if (flag == 0)
 		errcount++,	printf("%s: %d: %s: not found\n", av[0], errcount, argv[0]);
 	return (errcount);
