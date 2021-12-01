@@ -5,7 +5,7 @@
  * @HEAD: head of linked list
  * Return: 0 on success
  */
-int run(char **argv, path_list *HEAD)
+int run(char **av, int errcount, char **argv, path_list *HEAD)
 {
 	struct stat st;
 	pid_t pid;
@@ -17,6 +17,8 @@ int run(char **argv, path_list *HEAD)
 	{
 		flag = 1;
 		pid = fork();
+		if (pid == -1)
+			perror("Fork failed\n");
 		pid == 0 ? execve(argv[0], argv, NULL) : wait(&status);
 	}
 	else
@@ -44,6 +46,6 @@ int run(char **argv, path_list *HEAD)
 		}
 	}
 	if (flag == 0)
-		printf("%s: not found\n", argv[0]);
-	return (0);
+		errcount++,	printf("%s: %d: %s: not found\n", av[0], errcount, argv[0]);
+	return (errcount);
 }

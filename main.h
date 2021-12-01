@@ -27,7 +27,7 @@ typedef struct path_list
 	struct path_list *next;
 } path_list;
 
-int run(char **argv, path_list *HEAD);
+int run(char **av, int errcount, char **argv, path_list *HEAD);
 char **splitter(char fun[]);
 int _putchar(char c);
 int _printf(const char *format, ...);

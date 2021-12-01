@@ -15,27 +15,30 @@ void env(void)
  * @av: av
  * Return: 0 on success
  */
-int main(int ac, char **av)
+int main(int ac __attribute__((unused)), char **av)
 {
 	size_t bufsize = 2097152;
 	char *str = malloc(bufsize * sizeof(char));
 	char **argv;
 	path_list *HEAD = create_path_list();
-	int length;
+	int length, errcount = 0;
 
 	if (str == NULL)
-		free(str), free_list(HEAD), exit(-2);
+		free(str), free_list(HEAD), exit(-1);
 	do {
-		_printf("$ ");
+		if (isatty(STDIN_FILENO))
+			_printf("$ ");
 
 		length = getline(&str, &bufsize, stdin);
 
 		if (length == EOF)
 		{
-			_putchar('\n');
+			if (!(isatty(STDIN_FILENO)))
+				_printf("$");
+			printf("\n");
 			free(str);
 			free_list(HEAD);
-			exit(-1);
+			exit(0);
 			if (argv != NULL)
 				free(argv);
 		}
@@ -45,11 +48,14 @@ int main(int ac, char **av)
 		argv = splitter(str);
 
 		if (_strcmp(argv[0], "exit") == 0)
-			free(str), free(argv), free_list(HEAD), exit(1);
+			free(str), free(argv), free_list(HEAD), exit(0);
 		if (_strcmp(argv[0], "env") == 0)
 			env();
 		else
-			run(argv, HEAD);
+			if (HEAD != NULL)
+				errcount = run(av, errcount, argv, HEAD);
+			else
+				printf("PATH not found\n");
 		free(argv);
 	} while (length != -1);
 	return (0);

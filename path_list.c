@@ -17,6 +17,8 @@ path_list *create_path_list()
 			while ((path = strtok(NULL, ":")))
 			{
 				new_node = malloc(sizeof(path_list));
+				if (new_node == NULL)
+					return (NULL);
 				new_node->path = _strdup(path);
 				new_node->next = NULL;
 				if (HEAD == NULL)
