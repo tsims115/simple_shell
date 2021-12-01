@@ -72,3 +72,32 @@ int _strchr(char *s, char c)
 	}
 	return (0);
 }
+/**
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _putchar(char c)
+{
+	return (write(1, &c, 1));
+}
+/**
+ * _strcpy- copies source array to dest array
+ * @dest: destination array variable pointer
+ * @src: source array variable pointer
+ * Return: char
+ */
+char *_strcpy(char *dest, char *src)
+{
+	int i = 0;
+
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
