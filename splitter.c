@@ -8,7 +8,7 @@ char **splitter(char fun[])
 {
 	char **holder;
 	int i = 0;
-	long int length = strlen(fun);
+	long int length = _strlen(fun);
 	char *temp;
 
 	holder = malloc(sizeof(char) * (length * 2));

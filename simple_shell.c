@@ -30,29 +30,27 @@ int main(void)
 		{
 			_putchar('\n');
 			free(str);
+			free_list(HEAD);
 			exit(-1);
 		}
 		if (_strcmp(str, "exit\n") == 0)
 		{
 			free(str);
-			free(HEAD);
+			free_list(HEAD);
 			exit(0);
 		}
 		if (str[_strlen(str) - 1] == '\n')
 			str[_strlen(str) - 1] = '\0';
-		printf("Before splitter");
 		argv = splitter(str);
-		printf("After env\n");
 		if (_strcmp(argv[0], "env") == 0)
 			env();
 		else
 		{
-			printf("Before run\n");
 			run(argv, HEAD);
-			printf("After run\n");
 		}
 		free(argv);
 
 	} while (length != -1);
+	free_list(HEAD);
 	return (0);
 }
