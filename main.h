@@ -46,6 +46,7 @@ char *_strdup(char *str);
 void free_list(path_list *HEAD);
 path_list *create_path_list();
 int _strchr(char *s, char c);
+char *_strcpy(char *dest, char *src);
 extern char **environ;
 
 #endif
