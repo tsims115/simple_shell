@@ -9,26 +9,22 @@ int run(char **argv, path_list *HEAD)
 {
 	struct stat st;
 	pid_t pid;
-	int status;
+	int status, flag = 0, check = _strchr(argv[0], '/');
 	char *tmp_path = NULL;
-	int flag = 0;
 	path_list *node = HEAD;
-	int check = _strchr(argv[0], '/');
 
 	if (stat(argv[0], &st) == 0 && st.st_mode & S_IXUSR && check == 1)
 	{
 		flag = 1;
 		pid = fork();
-		if (pid != 0)
-			wait(&status);
-		if (pid == 0)
-			execve(argv[0], argv, NULL);
+		pid == 0 ? execve(argv[0], argv, NULL) : wait(&status);
 	}
 	else
 	{
 		while (node != NULL)
 		{
-			tmp_path = _strdup(node->path);
+			tmp_path = malloc(_strlen(node->path) + _strlen(argv[0]) + 2);
+			strcpy(tmp_path, node->path);
 			_strcat(tmp_path, "/");
 			_strcat(tmp_path, argv[0]);
 			if ((stat(tmp_path, &st) == 0) && (st.st_mode & S_IXUSR))
@@ -40,6 +36,7 @@ int run(char **argv, path_list *HEAD)
 					wait(&status);
 				if (pid == 0)
 					execve(argv[0], argv, environ);
+				free(tmp_path);
 				break;
 			}
 			free(tmp_path);
