@@ -24,7 +24,7 @@ int run(char **argv, path_list *HEAD)
 		while (node != NULL)
 		{
 			tmp_path = malloc(_strlen(node->path) + _strlen(argv[0]) + 2);
-			strcpy(tmp_path, node->path);
+			_strcpy(tmp_path, node->path);
 			_strcat(tmp_path, "/");
 			_strcat(tmp_path, argv[0]);
 			if ((stat(tmp_path, &st) == 0) && (st.st_mode & S_IXUSR))
