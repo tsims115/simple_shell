@@ -22,8 +22,12 @@ int run(char **av, int count, char **argv, path_list *HEAD)
 		if (WIFEXITED(status))
 			(exit_status = WEXITSTATUS(status));
 	}
-		else
-			exit_status = run_path(av, count, argv, HEAD);
+	else if (stat(argv[0], &st) == 0 && check == 1)
+	{
+		_printf("%s: %s: Permission denied\n", av[0], argv[0]);
+	}
+	else
+		exit_status = run_path(av, count, argv, HEAD);
 
 	return (exit_status);
 }
