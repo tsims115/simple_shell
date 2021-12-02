@@ -36,9 +36,9 @@ int main(int ac __attribute__((unused)), char **av)
 				printf("\n");
 			free(str);
 			free_list(HEAD);
-			exit(0);
 			if (argv != NULL)
 				free(argv);
+			exit(0);
 		}
 		if (str[_strlen(str) - 1] == '\n')
 			str[_strlen(str) - 1] = '\0';
