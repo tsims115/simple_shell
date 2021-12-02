@@ -13,7 +13,6 @@ int run(char **av, int count, char **argv, path_list *HEAD)
 	pid_t pid;
 	int status, exit_status, flag = 0, check = _strchr(argv[0], '/');
 	char *tmp_path = NULL;
-	path_list *node = HEAD;
 
 	if (stat(argv[0], &st) == 0 && st.st_mode & S_IXUSR && check == 1)
 	{
@@ -23,24 +22,7 @@ int run(char **av, int count, char **argv, path_list *HEAD)
 		pid == 0 ? execve(argv[0], argv, NULL) : wait(&status);
 	}
 	else
-		while (node != NULL)
-		{
-			tmp_path = malloc(_strlen(node->path) + _strlen(argv[0]) + 2);
-			_strcpy(tmp_path, node->path);
-			_strcat(tmp_path, "/");
-			_strcat(tmp_path, argv[0]);
-			if ((stat(tmp_path, &st) == 0) && (st.st_mode & S_IXUSR))
-			{
-				flag = 1;
-				argv[0] = tmp_path;
-				pid = fork();
-				pid == 0 ? execve(argv[0], argv, environ) : wait(&status);
-				free(tmp_path);
-				break;
-			}
-			free(tmp_path);
-			node = node->next;
-		}
+		flag = run_path(argv, status, tmp_path, HEAD);
 	(WIFEXITED(status)) ? (exit_status = WEXITSTATUS(status)) :
 		(exit_status = 127);
 	if (flag == 0)
