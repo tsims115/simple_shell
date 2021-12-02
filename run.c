@@ -23,7 +23,7 @@ int run(char **av, int count, char **argv, path_list *HEAD)
 		pid == 0 ? execve(argv[0], argv, NULL) : wait(&status);
 	}
 	else
-	        flag = run_path(argv, status, tmp_path, HEAD);
+		flag = run_path(argv, status, tmp_path, HEAD);
 	(WIFEXITED(status)) ? (exit_status = WEXITSTATUS(status)) :
 		(exit_status = 127);
 	if (flag == 0)
