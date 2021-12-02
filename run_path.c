@@ -1,11 +1,19 @@
 #include "main.h"
-
-int run_path(char **argv, int status, char *tmp_path, path_list *HEAD)
+/**
+ * run_path - if no slash is found in argv[0], this function looks for it
+ * @av: name of file
+ * @count: number of commands run
+ * @argv: commands passed
+ * @HEAD: linked list for PATH
+ * Return: the exit_status
+ */
+int run_path(char **av, int count, char **argv, path_list *HEAD)
 {
 	struct stat st;
 	pid_t pid;
 	path_list *node = HEAD;
-	int flag = 0;
+	int flag = 0, exit_status = 0, status;
+	char *tmp_path = NULL;
 
 	while (node != NULL)
 	{
@@ -25,5 +33,12 @@ int run_path(char **argv, int status, char *tmp_path, path_list *HEAD)
 		free(tmp_path);
 		node = node->next;
 	}
-	return (flag);
+
+	if (WIFEXITED(status))
+		exit_status = WEXITSTATUS(status);
+
+	if (flag == 0)
+		exit_status = 127, printf("%s: %d: %s: not found\n", av[0], count, argv[0]);
+
+	return (exit_status);
 }
