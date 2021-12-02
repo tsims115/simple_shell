@@ -31,9 +31,8 @@ int main(int ac __attribute__((unused)), char **av)
 		length = getline(&str, &bufsize, stdin);
 		if (length == EOF)
 		{
-			if (!(isatty(STDIN_FILENO)))
-				_printf("$");
-			printf("\n");
+			if (isatty(STDIN_FILENO))
+				printf("\n");
 			free(str);
 			free_list(HEAD);
 			exit(0);
