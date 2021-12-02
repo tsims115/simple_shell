@@ -34,22 +34,26 @@ int main(int ac __attribute__((unused)), char **av)
 		{
 			if (isatty(STDIN_FILENO))
 				printf("\n");
-			free(str);
-			free_list(HEAD);
-			exit(0);
+			free(str), free_list(HEAD), exit(0);
 		}
-		if (str[_strlen(str) - 1] == '\n')
-			str[_strlen(str) - 1] = '\0';
-		argv = splitter(str);
-		if (_strcmp(argv[0], "exit") == 0)
-			free(str), free(argv), free_list(HEAD), exit(exit_status);
-		if (_strcmp(argv[0], "env") == 0)
-			env();
+		if (_strcmp(str, "\n") == 0)
+			continue;
 		else
-			if (HEAD != NULL)
-				exit_status = run(av, count, argv, HEAD);
+		{
+			if (str[_strlen(str) - 1] == '\n')
+				str[_strlen(str) - 1] = '\0';
+			argv = splitter(str);
+
+			if (_strcmp(argv[0], "exit") == 0)
+				free(str), free(argv), free_list(HEAD), exit(exit_status);
+			if (_strcmp(argv[0], "env") == 0)
+				env();
 			else
-				printf("PATH not found\n");
+				if (HEAD != NULL)
+					exit_status = run(av, count, argv, HEAD);
+				else
+					printf("PATH not found\n");
+		}
 		free(argv);
 	} while (length != -1);
 	return (0);
