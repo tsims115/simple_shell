@@ -21,6 +21,11 @@ typedef struct function
 	char *spec;
 	int (*funct)(va_list *);
 } function_t;
+/**
+ * struct path_list - structure build a linked list of PATH directories
+ * @path: char * of path directory
+ * @next: next node in linked list
+ */
 typedef struct path_list
 {
 	char *path;
