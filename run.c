@@ -11,11 +11,11 @@ int run(char **av, int count, char **argv, path_list *HEAD)
 {
 	struct stat st;
 	pid_t pid;
-	int status, exit_status, flag = 0, check = _strchr(argv[0], '/');
+	int status, exit_status, check = _strchr(argv[0], '/');
 
 	if (stat(argv[0], &st) == 0 && st.st_mode & S_IXUSR && check == 1)
 	{
-		flag = 1, pid = fork();
+		pid = fork();
 		if (pid == -1)
 			perror("Fork failed\n");
 		pid == 0 ? execve(argv[0], argv, NULL) : wait(&status);
