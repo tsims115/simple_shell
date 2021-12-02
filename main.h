@@ -33,6 +33,7 @@ typedef struct path_list
 } path_list;
 
 int run(char **av, int errcount, char **argv, path_list *HEAD);
+int run_path(char **argv, int status, char *tmp_path, path_list *HEAD);
 char **splitter(char fun[]);
 int _putchar(char c);
 int _printf(const char *format, ...);
