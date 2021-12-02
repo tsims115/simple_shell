@@ -12,7 +12,6 @@ int run(char **av, int count, char **argv, path_list *HEAD)
 	struct stat st;
 	pid_t pid;
 	int status, exit_status, flag = 0, check = _strchr(argv[0], '/');
-	char *tmp_path = NULL;
 
 	if (stat(argv[0], &st) == 0 && st.st_mode & S_IXUSR && check == 1)
 	{
@@ -22,7 +21,7 @@ int run(char **av, int count, char **argv, path_list *HEAD)
 		pid == 0 ? execve(argv[0], argv, NULL) : wait(&status);
 	}
 	else
-		flag = run_path(argv, status, tmp_path, HEAD);
+		flag = run_path(argv, status, HEAD);
 	(WIFEXITED(status)) ? (exit_status = WEXITSTATUS(status)) :
 		(exit_status = 127);
 	if (flag == 0)

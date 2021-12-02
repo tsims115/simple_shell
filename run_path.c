@@ -1,10 +1,11 @@
 #include "main.h"
 
-int run_path(char **argv, int status, char *tmp_path, path_list *HEAD)
+int run_path(char **argv, int status, path_list *HEAD)
 {
 	struct stat st;
 	pid_t pid;
 	path_list *node = HEAD;
+	char *tmp_path;
 	int flag = 0;
 
 	while (node != NULL)
