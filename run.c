@@ -13,7 +13,6 @@ int run(char **av, int count, char **argv, path_list *HEAD)
 	pid_t pid;
 	int status, exit_status, flag = 0, check = _strchr(argv[0], '/');
 	char *tmp_path = NULL;
-	path_list *node = HEAD;
 
 	if (stat(argv[0], &st) == 0 && st.st_mode & S_IXUSR && check == 1)
 	{
