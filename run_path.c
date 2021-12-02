@@ -37,7 +37,7 @@ int run_path(char **av, int count, char **argv, path_list *HEAD)
 	if (flag == 1)
 		exit_status = WEXITSTATUS(status);
 	else
-		exit_status = 127, printf("%s: %d: %s: not found\n", av[0], count, argv[0]);
+		exit_status = 127, _printf("%s: %d: %s: not found\n", av[0], count, argv[0]);
 
 	return (exit_status);
 }

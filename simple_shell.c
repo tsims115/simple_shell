@@ -33,7 +33,7 @@ int main(int ac __attribute__((unused)), char **av)
 		if (length == EOF)
 		{
 			if (isatty(STDIN_FILENO))
-				printf("\n");
+				_printf("\n");
 			free(tmp), free_list(HEAD), exit(0);
 		}
 		if (_strcmp(str, "\n") == 0)
@@ -76,7 +76,7 @@ int runCommand(char **av, int count, char **argv, path_list *HEAD)
 		if (HEAD != NULL)
 			exit_status = run(av, count, argv, HEAD);
 		else
-			printf("PATH not found\n");
+			_printf("PATH not found\n");
 
 	return (exit_status);
 }
