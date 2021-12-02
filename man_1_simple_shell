@@ -1,0 +1,74 @@
+.\" Manpage for simple_shell
+.TH man 1 "December 2021" "1.0" "simple_shell man page"
+.SH NAME
+simple_shell \- a recreation of a bash shell but in a simpler context
+.SH SYNOPSIS
+
+$ ./hsh
+.br
+$ echo <COMMAND> | ./hsh
+
+.SH DESCRIPTION
+simple_shell is a basic recreation of the bash shell. It can take basic commands and arguments like a normal shell. simple_shell does have PATH support but cannot currently use ';' or any other wildcard characters.
+
+.SH USAGE
+
+Our shell works in a interactive mode and a noninteractive mode
+
+Interactive mode:
+
+	root@host:~/simple_shell$ ./hsh
+.br
+	 $ ls
+.br
+	 hsh main.c shell.c test_ls_2
+.br
+	 $ pwd
+.br
+	 /root/simple_shell
+.br
+	 $ exit
+.br
+	root@host:~/simple_shell$
+
+Non-Interactive mode:
+
+	root@host:~/simple_shell$ echo "/bin/ls" | ./hsh
+.br
+	hsh main.c shell.c test_ls_2
+.br
+	$
+.br
+	root@host:~/simple_shell$ cat test_ls_2
+.br
+	/bin/ls
+.br
+	/bin/ls
+.br
+	$
+.br
+	root@host:~/simple_shell$ cat test_ls_2 | ./hsh
+.br
+	hsh main.c shell.c test_ls_2
+.br
+	hsh main.c shell.c test_ls_2
+.br
+	$
+.br
+	root@host:~/simple_shell$
+
+.SH COMMAND ARGUMENTS
+This simple_shell can take in almost all of the same commands that the regfular
+bash shell can take. The simple_shell cannot make use of the ';' or other
+wildcard characters. The simple shell can use two built-in commands: exit and env.
+The shell can also be exited by EOF by pressing CTRL + D
+
+exit - exits the shell. Currently does not work with any parameters
+
+env - prints out the current environment variables one line at a time
+
+.SH AUTHOR
+Joseph Williams and Geoffrey Sims
+
+.SH GITHUB
+https://github.com/tsims115/simple_shell
