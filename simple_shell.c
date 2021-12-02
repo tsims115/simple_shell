@@ -18,7 +18,7 @@ void env(void)
 int main(int ac __attribute__((unused)), char **av)
 {
 	size_t bufsize = 2097152;
-	char *str = malloc(bufsize * sizeof(char));
+	char *str = malloc(bufsize * sizeof(char)), *tmp = str;
 	char **argv;
 	path_list *HEAD = create_path_list();
 	int length, count = 0, exit_status = 0;
@@ -34,7 +34,7 @@ int main(int ac __attribute__((unused)), char **av)
 		{
 			if (isatty(STDIN_FILENO))
 				printf("\n");
-			free(str), free_list(HEAD), exit(0);
+			free(tmp), free_list(HEAD), exit(0);
 		}
 		if (_strcmp(str, "\n") == 0)
 			continue;
@@ -42,19 +42,41 @@ int main(int ac __attribute__((unused)), char **av)
 		{
 			if (str[_strlen(str) - 1] == '\n')
 				str[_strlen(str) - 1] = '\0';
-			argv = splitter(str);
-
-			if (_strcmp(argv[0], "exit") == 0)
-				free(str), free(argv), free_list(HEAD), exit(exit_status);
-			if (_strcmp(argv[0], "env") == 0)
-				env();
+			while (*str == ' ')
+				str++;
+			if (_strcmp(str, " ") == 0)
+				continue;
 			else
-				if (HEAD != NULL)
-					exit_status = run(av, count, argv, HEAD);
-				else
-					printf("PATH not found\n");
+			{
+				argv = splitter(str);
+				if (_strcmp(argv[0], "exit") == 0)
+					free(tmp), free(argv), free_list(HEAD), exit(exit_status);
+				exit_status = runCommand(av, count, argv, HEAD);
+			}
 		}
 		free(argv);
 	} while (length != -1);
 	return (0);
+}
+/**
+ * runCommand - runs the command given in argv
+ * @av: filename
+ * @count: number of times commands have been entered
+ * @argv: commands given
+ * @HEAD: linked list for PATH
+ * Return: exit_status
+ */
+int runCommand(char **av, int count, char **argv, path_list *HEAD)
+{
+	int exit_status;
+
+	if (_strcmp(argv[0], "env") == 0)
+		env();
+	else
+		if (HEAD != NULL)
+			exit_status = run(av, count, argv, HEAD);
+		else
+			printf("PATH not found\n");
+
+	return (exit_status);
 }
