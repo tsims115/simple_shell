@@ -57,7 +57,7 @@ Non-Interactive mode:
 .br
 	root@host:~/simple_shell$
 
-.SH COMMAND ARGUMENTS
+.SH COMMAND ARGUMENTS AND BUILT-INS
 This simple_shell can take in almost all of the same commands that the regfular
 bash shell can take. The simple_shell cannot make use of the ';' or other
 wildcard characters. The simple shell can use two built-in commands: exit and env.
