@@ -21,7 +21,7 @@ int main(int ac __attribute__((unused)), char **av)
 	char *str = malloc(bufsize * sizeof(char));
 	char **argv;
 	path_list *HEAD = create_path_list();
-	int length, errcount = 0;
+	int length, count = 0, exit_status = 0;
 
 	if (str == NULL)
 		free(str), free_list(HEAD), exit(-1);
@@ -29,6 +29,7 @@ int main(int ac __attribute__((unused)), char **av)
 		if (isatty(STDIN_FILENO))
 			_printf("$ ");
 		length = getline(&str, &bufsize, stdin);
+		count++;
 		if (length == EOF)
 		{
 			if (isatty(STDIN_FILENO))
@@ -43,12 +44,12 @@ int main(int ac __attribute__((unused)), char **av)
 			str[_strlen(str) - 1] = '\0';
 		argv = splitter(str);
 		if (_strcmp(argv[0], "exit") == 0)
-			free(str), free(argv), free_list(HEAD), exit(0);
+			free(str), free(argv), free_list(HEAD), exit(exit_status);
 		if (_strcmp(argv[0], "env") == 0)
 			env();
 		else
 			if (HEAD != NULL)
-				errcount = run(av, errcount, argv, HEAD);
+				exit_status = run(av, count, argv, HEAD);
 			else
 				printf("PATH not found\n");
 		free(argv);
