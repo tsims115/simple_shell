@@ -26,7 +26,7 @@ int run_path(char **av, int count, char **argv, path_list *HEAD)
 			flag = 1;
 			argv[0] = tmp_path;
 			pid = fork();
-		        pid == 0 ? execve(argv[0], argv, environ) : wait(&status);
+			pid == 0 ? execve(argv[0], argv, environ) : wait(&status);
 			free(tmp_path);
 			break;
 		}
