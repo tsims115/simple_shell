@@ -26,7 +26,7 @@ int run_path(char **av, int count, char **argv, path_list *HEAD)
 			flag = 1;
 			argv[0] = tmp_path;
 			pid = fork();
-			pid == 0 ? execve(argv[0], argv, environ) : wait(&status);
+		        pid == 0 ? execve(argv[0], argv, environ) : wait(&status);
 			free(tmp_path);
 			break;
 		}
@@ -38,6 +38,5 @@ int run_path(char **av, int count, char **argv, path_list *HEAD)
 		exit_status = WEXITSTATUS(status);
 	else
 		exit_status = 127, _printf("%s: %d: %s: not found\n", av[0], count, argv[0]);
-
 	return (exit_status);
 }

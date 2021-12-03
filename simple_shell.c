@@ -34,7 +34,7 @@ int main(int ac __attribute__((unused)), char **av)
 		{
 			if (isatty(STDIN_FILENO))
 				_printf("\n");
-			free(tmp), free_list(HEAD), exit(0);
+			free(tmp), free_list(HEAD), exit(exit_status);
 		}
 		if (_strcmp(str, "\n") == 0)
 			continue;
