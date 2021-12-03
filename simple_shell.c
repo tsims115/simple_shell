@@ -73,10 +73,7 @@ int runCommand(char **av, int count, char **argv, path_list *HEAD)
 	if (_strcmp(argv[0], "env") == 0)
 		env();
 	else
-		if (HEAD != NULL)
-			exit_status = run(av, count, argv, HEAD);
-		else
-			_printf("PATH not found\n");
+		exit_status = run(av, count, argv, HEAD);
 
 	return (exit_status);
 }
