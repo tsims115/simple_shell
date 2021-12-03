@@ -18,7 +18,7 @@ int run(char **av, int count, char **argv, path_list *HEAD)
 		pid = fork();
 		if (pid == -1)
 			perror("Fork failed\n");
-		pid == 0 ? execve(argv[0], argv, NULL) : wait(&status);
+		pid == 0 ? execve(argv[0], argv, environ) : wait(&status);
 		if (WIFEXITED(status))
 			(exit_status = WEXITSTATUS(status));
 	}
